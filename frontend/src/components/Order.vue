@@ -24,8 +24,9 @@
         </v-card-text>
 
         
-          <Delivery v-if="value.delivery" v-model="value.delivery"></Delivery>
-          <div v-else>배송정보로딩중...</div>
+          <Delivery v-if="value.delivery" v-model="value.delivery" offline></Delivery>
+          <v-progress-circular v-else></v-progress-circular>
+          
           
 
         <v-card-actions>
@@ -104,7 +105,7 @@
             },
         }),
 
-        async created(){
+        async mounted(){
             if(this.value._links.delivery){
                 var deliveryList = await axios.get(axios.fixUrl(this.value._links.delivery.href));
 
@@ -112,7 +113,7 @@
 
                 if(deliveryList){
                     this.value.delivery = deliveryList.data._embedded.deliveries[0];
-                    this.$emit('input', this.value);
+                    this.value.__ob__.dep.notify();
                 }
             }
 

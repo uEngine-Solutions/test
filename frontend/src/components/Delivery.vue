@@ -23,7 +23,7 @@
             <String label="DeliveryStatus" v-model="value.deliveryStatus" :editMode="editMode"/>
         </v-card-text>
 
-        <v-card-actions>
+        <v-card-actions v-if="!offline">
             <v-spacer></v-spacer>
             <v-btn
                     color="deep-purple lighten-2"
