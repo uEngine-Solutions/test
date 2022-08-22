@@ -79,6 +79,8 @@
         </div>
 
         <v-main>
+          
+
             <v-container v-if="urlPath" class="py-8 px-6 mt-10" fluid>
                 <router-view></router-view>
             </v-container>
@@ -182,23 +184,23 @@
 
 <script>
 
-export default {
+export default {               // public class App{}
     name: "App",
 
-    data: () => ({
-        useComponent: "",
-        drawer: true,
-        components: [],
+    data: () => ({                  
+        useComponent: "",       // private String useComponent;
+        drawer: true,           // private boolean drawer = true;
+        components: [],         //...
         sideBar: true,
         urlPath: null,
     }),
     
-    async created() {
+    async created() {           // public App(){...}
       var path = document.location.href.split("#/")
       this.urlPath = path[1];
     },
 
-    mounted() {
+    mounted() {                 // @PostConstruct public mounted(){...}
         var me = this;
         me.components = this.$ManagerLists;
     },

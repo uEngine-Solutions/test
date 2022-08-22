@@ -56,6 +56,7 @@
             newValue: {},
             tick : true,
             openDialog : false,
+            
         }),
         async created() {
             var me = this;

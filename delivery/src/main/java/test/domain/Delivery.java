@@ -45,11 +45,15 @@ public class Delivery {
     }
 
     public static void startDelivery(OrderPlaced orderPlaced) {
-        /** Example 1:  new item 
+        /** Example 1:  new item  */
         Delivery delivery = new Delivery();
+        delivery.setOrderId(orderPlaced.getId());
+        delivery.setProductId(orderPlaced.getProductId());
+        delivery.setDeliveryStatus("Started");
+
         repository().save(delivery);
 
-        */
+       
 
         /** Example 2:  finding and process
         

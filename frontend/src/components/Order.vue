@@ -10,10 +10,10 @@
         </template>
 
         <v-card-title v-if="value._links">
-            Order # {{value._links.self.href.split("/")[value._links.self.href.split("/").length - 1]}}
+            주문 # {{value._links.self.href.split("/")[value._links.self.href.split("/").length - 1]}}
         </v-card-title >
         <v-card-title v-else>
-            Order
+            주문
         </v-card-title >
 
         <v-card-text>
@@ -22,6 +22,11 @@
             <String label="ProductName" v-model="value.productName" :editMode="editMode"/>
             <String label="OrderStatus" v-model="value.orderStatus" :editMode="editMode"/>
         </v-card-text>
+
+        
+          <Delivery v-if="value.delivery" v-model="value.delivery"></Delivery>
+          <div v-else>배송정보로딩중...</div>
+          
 
         <v-card-actions>
             <v-spacer></v-spacer>
@@ -98,8 +103,21 @@
                 text: ''
             },
         }),
-        created(){
+
+        async created(){
+            if(this.value._links.delivery){
+                var deliveryList = await axios.get(axios.fixUrl(this.value._links.delivery.href));
+
+                console.log(deliveryList);
+
+                if(deliveryList){
+                    this.value.delivery = deliveryList.data._embedded.deliveries[0];
+                    this.$emit('input', this.value);
+                }
+            }
+
         },
+
         methods: {
             selectFile(){
                 if(this.editMode == false) {
